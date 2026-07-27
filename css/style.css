@@ -252,9 +252,13 @@ h1, h2, h3 {
   padding-bottom: clamp(64px, 8vw, 110px);
 }
 .hero-visual { position: absolute; inset: 0; z-index: 0; }
+.hero-visual video {
+  object-fit: contain;
+  background: var(--black);
+}
 .hero-overlay {
   position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(0deg, rgba(8,8,8,0.96) 0%, rgba(8,8,8,0.55) 45%, rgba(8,8,8,0.75) 100%);
+  background: linear-gradient(0deg, rgba(8,8,8,0.96) 0%, rgba(8,8,8,0.3) 40%, rgba(8,8,8,0.15) 100%);
 }
 .hero-content { position: relative; z-index: 2; max-width: 980px; }
 .hero-title {
