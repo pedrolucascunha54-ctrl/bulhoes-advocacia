@@ -254,5 +254,261 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------------- Footer year ---------------- */
   document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
 
+  /* ---------------- Dual nav links (mobile id vs desktop id) ---------------- */
+  document.querySelectorAll('[data-nav-dual]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const key = link.dataset.navDual;
+      const isDesktop = window.matchMedia('(min-width: 901px)').matches;
+      const targetId = isDesktop ? `${key}-desktop` : key;
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      e.preventDefault();
+      const y = target.getBoundingClientRect().top + window.scrollY - 20;
+      if (lenis) lenis.scrollTo(y); else window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+  });
+
+  /* ---------------- Desktop narrative: canvas crossfade + pinned scroll ---------------- */
+  if (window.matchMedia('(min-width: 901px)').matches) {
+    initDesktopNarrative();
+  }
+
   ScrollTrigger.refresh();
 });
+
+/* ============================================================
+   DESKTOP NARRATIVE ENGINE
+   Canvas fixo com crossfade de vídeo + scroll-container gigante.
+   Só é chamado quando a viewport inicial é ≥901px (ver acima).
+   ============================================================ */
+function initDesktopNarrative() {
+  const VIDEO_SRCS = [
+    'assets/video/sobre.mp4',
+    'assets/video/trabalhista.mp4',
+    'assets/video/criminal.mp4',
+    'assets/video/civil.mp4',
+    'assets/video/familia.mp4',
+    'assets/video/empresarial-vertical.mp4',
+    'assets/video/previdenciario-vertical.mp4',
+    'assets/video/tributario-vertical.mp4',
+    'assets/video/diferenciais.mp4',
+    'assets/video/processo.mp4',
+    'assets/video/cta.mp4',
+  ];
+  const BREAKS = [0, 0.091, 0.182, 0.273, 0.364, 0.455, 0.545, 0.636, 0.727, 0.818, 0.909];
+  const STATS_ENTER = 0.727;
+  const STATS_LEAVE = 0.818;
+
+  const canvas = document.getElementById('canvas');
+  const canvasWrap = document.getElementById('canvas-wrap');
+  const darkOverlay = document.getElementById('dark-overlay');
+  const scrollCont = document.getElementById('scroll-container');
+  if (!canvas || !scrollCont) return;
+  const ctx = canvas.getContext('2d');
+
+  let videoEls = [];
+  let currentIdx = 0;
+  let prevIdx = -1;
+  let blendStart = null;
+  const BLEND_MS = 600;
+
+  function resizeCanvas() {
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    ctx.scale(dpr, dpr);
+  }
+
+  function drawPaddedCover(el) {
+    if (!el) return;
+    const cw = window.innerWidth, ch = window.innerHeight;
+    const iw = el.videoWidth || 0, ih = el.videoHeight || 0;
+    if (!iw || !ih) return;
+    const scale = Math.max(cw / iw, ch / ih);
+    const dw = iw * scale, dh = ih * scale;
+    const dx = (cw - dw) / 2, dy = (ch - dh) / 2;
+    ctx.fillStyle = '#080808';
+    ctx.fillRect(0, 0, cw, ch);
+    ctx.drawImage(el, dx, dy, dw, dh);
+  }
+
+  function drawLoop(timestamp) {
+    requestAnimationFrame(drawLoop);
+    const cv = videoEls[currentIdx];
+    const pv = prevIdx >= 0 ? videoEls[prevIdx] : null;
+    let blend = 1;
+    if (blendStart !== null) {
+      blend = Math.min(1, (timestamp - blendStart) / BLEND_MS);
+      if (blend >= 1) {
+        blendStart = null;
+        if (pv && pv !== cv) { pv.pause(); }
+        prevIdx = -1;
+      }
+    }
+    if (pv && pv !== cv && blend < 1) { ctx.globalAlpha = 1; drawPaddedCover(pv); }
+    if (cv) { ctx.globalAlpha = blend; drawPaddedCover(cv); ctx.globalAlpha = 1; }
+  }
+
+  function getVideoIdx(p) {
+    for (let i = BREAKS.length - 1; i >= 0; i--) if (p >= BREAKS[i]) return i;
+    return 0;
+  }
+
+  function setActiveVideo(idx) {
+    if (idx === currentIdx) return;
+    prevIdx = currentIdx;
+    currentIdx = idx;
+    blendStart = performance.now();
+    const nv = videoEls[idx];
+    if (nv) { nv.currentTime = 0; nv.play().catch(() => {}); }
+  }
+
+  function loadVideos(onComplete) {
+    let done = 0;
+    let revealed = false;
+    VIDEO_SRCS.forEach((src, i) => {
+      const v = document.createElement('video');
+      v.src = src;
+      v.muted = true;
+      v.loop = true;
+      v.playsInline = true;
+      v.preload = i === 0 ? 'auto' : 'metadata';
+      let fired = false;
+      const timeout = setTimeout(() => { if (!fired) { fired = true; ready(); } }, 4000);
+      v.addEventListener('canplay', () => { if (!fired) { fired = true; clearTimeout(timeout); ready(); } }, { once: true });
+      videoEls[i] = v;
+      function ready() {
+        done++;
+        if (!revealed && i === 0) { revealed = true; onComplete(); }
+        if (!revealed && done >= 2) { revealed = true; onComplete(); }
+      }
+    });
+  }
+
+  function positionSections() {
+    const totalH = scrollCont.offsetHeight;
+    document.querySelectorAll('.scroll-section').forEach((sec) => {
+      const enter = parseFloat(sec.dataset.enter) / 100;
+      const leave = parseFloat(sec.dataset.leave) / 100;
+      sec.style.top = `${((enter + leave) / 2) * totalH}px`;
+      sec.style.transform = 'translateY(-50%)';
+    });
+  }
+
+  const sectionCfgs = [];
+  function setupSections() {
+    document.querySelectorAll('.scroll-section').forEach((sec) => {
+      const type = sec.dataset.animation || 'fade-up';
+      const persist = sec.dataset.persist === 'true';
+      const enter = parseFloat(sec.dataset.enter) / 100;
+      const leave = parseFloat(sec.dataset.leave) / 100;
+      const children = [...sec.querySelectorAll(
+        '.sec-label, .section-heading, .section-body, .section-note, .process-list li, .cta-button, .cta-deco, .btn, .stat'
+      )];
+      gsap.set(sec, { opacity: 0 });
+      const tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
+      switch (type) {
+        case 'slide-left':
+          gsap.set(children, { x: -80, opacity: 0 });
+          tl.to(children, { x: 0, opacity: 1, stagger: 0.12, duration: 0.9 });
+          break;
+        case 'slide-right':
+          gsap.set(children, { x: 80, opacity: 0 });
+          tl.to(children, { x: 0, opacity: 1, stagger: 0.12, duration: 0.9 });
+          break;
+        case 'scale-up':
+          gsap.set(children, { scale: 0.85, opacity: 0 });
+          tl.to(children, { scale: 1, opacity: 1, stagger: 0.1, duration: 1.0, ease: 'power2.out' });
+          break;
+        case 'rotate-in':
+          gsap.set(children, { y: 40, rotation: 3, opacity: 0 });
+          tl.to(children, { y: 0, rotation: 0, opacity: 1, stagger: 0.1, duration: 0.9 });
+          break;
+        case 'stagger-up':
+          gsap.set(children, { y: 60, opacity: 0 });
+          tl.to(children, { y: 0, opacity: 1, stagger: 0.14, duration: 0.8 });
+          break;
+        case 'clip-reveal':
+          gsap.set(children, { clipPath: 'inset(100% 0 0 0)', opacity: 0 });
+          tl.to(children, { clipPath: 'inset(0% 0 0 0)', opacity: 1, stagger: 0.14, duration: 1.1, ease: 'power4.inOut' });
+          break;
+        default:
+          gsap.set(children, { y: 50, opacity: 0 });
+          tl.to(children, { y: 0, opacity: 1, stagger: 0.1, duration: 0.9 });
+      }
+      sectionCfgs.push({ sec, tl, enter, leave, persist, played: false });
+    });
+  }
+
+  function updateSections(p) {
+    sectionCfgs.forEach((cfg) => {
+      const { sec, tl, enter, leave, persist } = cfg;
+      const active = p >= enter && (persist || p <= leave);
+      if (active) {
+        if (!cfg.played) {
+          cfg.played = true;
+          gsap.to(sec, { opacity: 1, duration: 0.25, ease: 'power2.out' });
+          sec.classList.add('is-active');
+          tl.restart();
+        }
+      } else if (!persist && cfg.played) {
+        cfg.played = false;
+        gsap.to(sec, {
+          opacity: 0, duration: 0.25, ease: 'power2.in',
+          onComplete() { sec.classList.remove('is-active'); tl.pause(0); },
+        });
+      }
+    });
+  }
+
+  function animateDesktopCounters() {
+    document.querySelectorAll('.section-stats .stat-number').forEach((el) => {
+      const target = parseFloat(el.dataset.value);
+      gsap.fromTo(el, { textContent: 0 }, {
+        textContent: target, duration: 1.8, ease: 'power1.out',
+        snap: { textContent: 1 },
+        onUpdate() { el.textContent = Math.round(parseFloat(el.textContent)); },
+      });
+    });
+  }
+
+  function updateOverlay(p) {
+    if (!darkOverlay) return;
+    const FADE = 0.03;
+    let opacity = 0;
+    if (p >= STATS_ENTER - FADE && p <= STATS_ENTER) opacity = (p - (STATS_ENTER - FADE)) / FADE;
+    else if (p > STATS_ENTER && p < STATS_LEAVE) opacity = 0.55;
+    else if (p >= STATS_LEAVE && p <= STATS_LEAVE + FADE) opacity = 0.55 * (1 - (p - STATS_LEAVE) / FADE);
+    darkOverlay.style.opacity = opacity;
+  }
+
+  resizeCanvas();
+  window.addEventListener('resize', () => { resizeCanvas(); positionSections(); });
+
+  let statsDone = false;
+  loadVideos(() => {
+    if (videoEls[0]) { videoEls[0].currentTime = 0; videoEls[0].play().catch(() => {}); }
+    requestAnimationFrame(drawLoop);
+    gsap.to(canvasWrap, { opacity: 1, duration: 0.8, delay: 0.2 });
+
+    positionSections();
+    setupSections();
+
+    ScrollTrigger.create({
+      trigger: scrollCont,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: true,
+      onUpdate(self) {
+        const p = self.progress;
+        setActiveVideo(getVideoIdx(p));
+        updateSections(p);
+        updateOverlay(p);
+        if (p >= STATS_ENTER && p <= STATS_LEAVE && !statsDone) { statsDone = true; animateDesktopCounters(); }
+        if (p < STATS_ENTER) statsDone = false;
+      },
+    });
+  });
+}

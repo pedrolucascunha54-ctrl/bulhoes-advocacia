@@ -99,9 +99,9 @@
       <span class="header-logo-text">Bulhões<em>Advocacia</em></span>
     </a>
     <nav class="header-nav" aria-label="Navegação principal">
-      <a href="#sobre">Escritório</a>
-      <a href="#areas">Áreas</a>
-      <a href="#processo">Processo</a>
+      <a href="#sobre-desktop" data-nav-dual="sobre">Escritório</a>
+      <a href="#areas-desktop" data-nav-dual="areas">Áreas</a>
+      <a href="#processo-desktop" data-nav-dual="processo">Processo</a>
       <a href="#depoimentos">Depoimentos</a>
       <a href="#contato">Contato</a>
     </nav>
@@ -143,17 +143,192 @@
       <p class="hero-subtext" data-reveal="fade">Atuação jurídica estratégica para pessoas físicas e empresas.</p>
       <div class="hero-actions" data-reveal="fade">
         <a class="btn btn-gold" href="https://wa.me/5516997043651" target="_blank" rel="noopener">Fale com um advogado</a>
-        <a class="btn btn-ghost" href="#areas">Áreas de atuação</a>
+        <a class="btn btn-ghost" href="#areas" data-nav-dual="areas">Áreas de atuação</a>
       </div>
     </div>
-    <a href="#sobre" class="scroll-indicator" aria-label="Rolar para o conteúdo">
+    <a href="#sobre" class="scroll-indicator" data-nav-dual="sobre" aria-label="Rolar para o conteúdo">
       <span class="scroll-indicator-line"></span>
       <span class="scroll-indicator-text">Role</span>
     </a>
   </section>
 
+
+  <!-- ============================================================
+       DESKTOP NARRATIVE — canvas fixo com crossfade de vídeo +
+       scroll-container gigante com zonas de texto (>900px apenas)
+       Modelo replicado de: lidiane-adv (video-to-website skill)
+  ============================================================ -->
+  <div class="desktop-narrative">
+
+    <div class="canvas-wrap" id="canvas-wrap" aria-hidden="true">
+      <canvas id="canvas"></canvas>
+    </div>
+    <div id="dark-overlay" aria-hidden="true"></div>
+
+    <div id="scroll-container">
+
+      <!-- 0 · SOBRE -->
+      <section id="sobre-desktop" class="scroll-section section-content align-left"
+               data-enter="0" data-leave="9.1" data-animation="slide-left">
+        <div class="section-gradient" aria-hidden="true"></div>
+        <div class="section-inner">
+          <span class="sec-label">001 / Quem somos</span>
+          <h2 class="section-heading">Tradição, ética e excelência a serviço de quem confia em nós.</h2>
+          <p class="section-body">A Bulhões Sociedade Individual de Advocacia nasceu do compromisso com uma advocacia séria, próxima e estratégica — combinando rigor técnico com atenção humana a cada história.</p>
+          <p class="section-note">Tradição · Compromisso · Ética · Excelência</p>
+        </div>
+      </section>
+
+      <!-- 1 · TRABALHISTA -->
+      <section id="areas-desktop" class="scroll-section section-content align-right"
+               data-enter="9.1" data-leave="18.2" data-animation="slide-right">
+        <div class="section-gradient" aria-hidden="true"></div>
+        <div class="section-inner">
+          <span class="sec-label">01 / Direito Trabalhista</span>
+          <h2 class="section-heading">Representação estratégica em todas as fases do processo.</h2>
+          <p class="section-body">Representação de reclamantes e reclamadas em todas as fases do processo trabalhista, com estratégia voltada à melhor solução para cada parte.</p>
+          <a href="https://wa.me/5516997043651" class="cta-button" target="_blank" rel="noopener">Falar com um advogado</a>
+        </div>
+      </section>
+
+      <!-- 2 · CRIMINAL -->
+      <section id="criminal-desktop" class="scroll-section section-content align-left"
+               data-enter="18.2" data-leave="27.3" data-animation="fade-up">
+        <div class="section-gradient" aria-hidden="true"></div>
+        <div class="section-inner">
+          <span class="sec-label">02 / Direito Criminal</span>
+          <h2 class="section-heading">Defesa técnica e discreta, do início ao fim.</h2>
+          <p class="section-body">Defesa criminal técnica e discreta, com acompanhamento completo desde a fase de investigação até o trânsito em julgado.</p>
+          <a href="https://wa.me/5516997043651" class="cta-button" target="_blank" rel="noopener">Falar com um advogado</a>
+        </div>
+      </section>
+
+      <!-- 3 · CIVIL -->
+      <section id="civil-desktop" class="scroll-section section-content align-right"
+               data-enter="27.3" data-leave="36.4" data-animation="scale-up">
+        <div class="section-gradient" aria-hidden="true"></div>
+        <div class="section-inner">
+          <span class="sec-label">03 / Direito Civil</span>
+          <h2 class="section-heading">Precisão técnica com foco em resultado.</h2>
+          <p class="section-body">Contratos, responsabilidade civil, indenizações e cobranças conduzidos com precisão técnica e foco em resultado.</p>
+          <a href="https://wa.me/5516997043651" class="cta-button" target="_blank" rel="noopener">Falar com um advogado</a>
+        </div>
+      </section>
+
+      <!-- 4 · FAMÍLIA -->
+      <section id="familia-desktop" class="scroll-section section-content align-left"
+               data-enter="36.4" data-leave="45.5" data-animation="rotate-in">
+        <div class="section-gradient" aria-hidden="true"></div>
+        <div class="section-inner">
+          <span class="sec-label">04 / Direito de Família</span>
+          <h2 class="section-heading">Sensibilidade e firmeza nos momentos delicados.</h2>
+          <p class="section-body">Divórcio, guarda, pensão e inventário conduzidos com sensibilidade, sigilo e firmeza técnica nos momentos mais delicados.</p>
+          <a href="https://wa.me/5516997043651" class="cta-button" target="_blank" rel="noopener">Falar com um advogado</a>
+        </div>
+      </section>
+
+      <!-- 5 · EMPRESARIAL -->
+      <section id="empresarial-desktop" class="scroll-section section-content align-right"
+               data-enter="45.5" data-leave="54.5" data-animation="clip-reveal">
+        <div class="section-gradient" aria-hidden="true"></div>
+        <div class="section-inner">
+          <span class="sec-label">05 / Direito Empresarial</span>
+          <h2 class="section-heading">Consultoria contínua para blindar o seu negócio.</h2>
+          <p class="section-body">Assessoria preventiva, contratos empresariais, planejamento jurídico e consultoria contínua para blindar o seu negócio.</p>
+          <a href="https://wa.me/5516997043651" class="cta-button" target="_blank" rel="noopener">Falar com um advogado</a>
+        </div>
+      </section>
+
+      <!-- 6 · PREVIDENCIÁRIO -->
+      <section id="previdenciario-desktop" class="scroll-section section-content align-left"
+               data-enter="54.5" data-leave="63.6" data-animation="stagger-up">
+        <div class="section-gradient" aria-hidden="true"></div>
+        <div class="section-inner">
+          <span class="sec-label">06 / Direito Previdenciário</span>
+          <h2 class="section-heading">Garantindo o que é seu por direito.</h2>
+          <p class="section-body">INSS, aposentadoria, auxílio-doença e benefícios — orientação técnica para garantir o que é seu por direito.</p>
+          <a href="https://wa.me/5516997043651" class="cta-button" target="_blank" rel="noopener">Falar com um advogado</a>
+        </div>
+      </section>
+
+      <!-- 7 · TRIBUTÁRIO -->
+      <section id="tributario-desktop" class="scroll-section section-content align-right"
+               data-enter="63.6" data-leave="72.7" data-animation="slide-left">
+        <div class="section-gradient" aria-hidden="true"></div>
+        <div class="section-inner">
+          <span class="sec-label">07 / Direito Tributário</span>
+          <h2 class="section-heading">Visão estratégica de longo prazo.</h2>
+          <p class="section-body">Planejamento tributário, defesas fiscais e recuperação de créditos com visão estratégica de longo prazo.</p>
+          <a href="https://wa.me/5516997043651" class="cta-button" target="_blank" rel="noopener">Falar com um advogado</a>
+        </div>
+      </section>
+
+      <!-- 8 · DIFERENCIAIS (stats) -->
+      <section class="scroll-section section-stats"
+               data-enter="72.7" data-leave="81.8" data-animation="scale-up">
+        <div class="stats-grid">
+          <div class="stat">
+            <div class="stat-line">
+              <span class="stat-number" data-value="100" data-decimals="0">0</span>
+              <span class="stat-suffix">%</span>
+            </div>
+            <span class="stat-label">Compromisso</span>
+          </div>
+          <div class="stat">
+            <span class="stat-mark">◆</span>
+            <span class="stat-label">Atendimento humanizado</span>
+          </div>
+          <div class="stat">
+            <span class="stat-mark">◆</span>
+            <span class="stat-label">Atuação estratégica</span>
+          </div>
+          <div class="stat">
+            <span class="stat-mark">◆</span>
+            <span class="stat-label">Transparência</span>
+          </div>
+          <div class="stat">
+            <span class="stat-mark">◆</span>
+            <span class="stat-label">Agilidade</span>
+          </div>
+          <div class="stat">
+            <span class="stat-mark">◆</span>
+            <span class="stat-label">Ética</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9 · PROCESSO -->
+      <section id="processo-desktop" class="scroll-section section-content align-left"
+               data-enter="81.8" data-leave="90.9" data-animation="rotate-in">
+        <div class="section-gradient" aria-hidden="true"></div>
+        <div class="section-inner">
+          <span class="sec-label">Como trabalhamos</span>
+          <h2 class="section-heading">Um processo claro, do primeiro contato ao resultado.</h2>
+          <ul class="process-list section-body">
+            <li><strong>01</strong> Análise — estudo aprofundado do caso e do contexto do cliente</li>
+            <li><strong>02</strong> Estratégia — definição do caminho jurídico mais sólido</li>
+            <li><strong>03</strong> Acompanhamento — atuação contínua e transparente</li>
+            <li><strong>04</strong> Resultado — entrega orientada ao melhor desfecho possível</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 10 · CTA FINAL (persist) -->
+      <section class="scroll-section section-cta"
+               data-enter="90.9" data-leave="100" data-animation="fade-up" data-persist="true">
+        <div class="cta-inner">
+          <div class="cta-deco" aria-hidden="true"></div>
+          <span class="sec-label gold-label">Fale conosco</span>
+          <h2 class="section-heading cta-heading">Seu direito merece uma defesa à altura.</h2>
+          <a href="https://wa.me/5516997043651" class="btn btn-gold btn-large" target="_blank" rel="noopener">Fale agora pelo WhatsApp</a>
+        </div>
+      </section>
+
+    </div><!-- /#scroll-container -->
+  </div><!-- /.desktop-narrative -->
+
   <!-- 02 SOBRE -->
-  <section class="sobre" id="sobre" aria-labelledby="sobre-title">
+  <section class="sobre mobile-narrative" id="sobre" aria-labelledby="sobre-title">
     <div class="sobre-grid">
       <div class="sobre-text">
         <p class="eyebrow" data-reveal="fade">Quem somos</p>
@@ -177,7 +352,7 @@
   </section>
 
   <!-- 03 ÁREAS DE ATUAÇÃO -->
-  <section class="areas" id="areas" aria-labelledby="areas-title">
+  <section class="areas mobile-narrative" id="areas" aria-labelledby="areas-title">
     <header class="areas-intro">
       <div class="areas-intro-visual video-bg" data-visual="areas-intro" aria-hidden="true">
         <video data-lazy-video autoplay muted loop playsinline preload="none" poster="assets/img/posters/areas-intro.jpg">
@@ -310,7 +485,7 @@
   </section>
 
   <!-- 04 DIFERENCIAIS -->
-  <section class="diferenciais" id="diferenciais" aria-labelledby="dif-title">
+  <section class="diferenciais mobile-narrative" id="diferenciais" aria-labelledby="dif-title">
     <div class="section-video-bg video-bg" data-visual="diferenciais" aria-hidden="true">
       <video data-lazy-video autoplay muted loop playsinline preload="none" poster="assets/img/posters/diferenciais.jpg">
         <source data-src="assets/video/diferenciais-vertical.mp4" media="(max-width: 767px)" type="video/mp4">
@@ -349,7 +524,7 @@
   </section>
 
   <!-- 05 PROCESSO -->
-  <section class="processo" id="processo" aria-labelledby="processo-title">
+  <section class="processo mobile-narrative" id="processo" aria-labelledby="processo-title">
     <div class="section-video-bg video-bg" data-visual="processo" aria-hidden="true">
       <video data-lazy-video autoplay muted loop playsinline preload="none" poster="assets/img/posters/processo.jpg">
         <source data-src="assets/video/processo-vertical.mp4" media="(max-width: 767px)" type="video/mp4">
@@ -475,7 +650,7 @@
   </section>
 
   <!-- 08 CTA FINAL -->
-  <section class="cta-final" id="cta-final" aria-labelledby="cta-title">
+  <section class="cta-final mobile-narrative" id="cta-final" aria-labelledby="cta-title">
     <div class="cta-visual video-bg" data-visual="cta" aria-hidden="true">
       <video data-lazy-video autoplay muted loop playsinline preload="none" poster="assets/img/posters/cta.jpg">
         <source data-src="assets/video/cta-vertical.mp4" media="(max-width: 767px)" type="video/mp4">
@@ -530,9 +705,9 @@
       <p>Bulhões Sociedade Individual de Advocacia</p>
     </div>
     <nav class="footer-nav" aria-label="Navegação do rodapé">
-      <a href="#sobre">Escritório</a>
-      <a href="#areas">Áreas</a>
-      <a href="#processo">Processo</a>
+      <a href="#sobre" data-nav-dual="sobre">Escritório</a>
+      <a href="#areas" data-nav-dual="areas">Áreas</a>
+      <a href="#processo" data-nav-dual="processo">Processo</a>
       <a href="#depoimentos">Depoimentos</a>
       <a href="#faq">FAQ</a>
       <a href="#contato">Contato</a>
