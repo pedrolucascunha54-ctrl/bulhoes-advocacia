@@ -421,13 +421,21 @@ h1, h2, h3 {
 
 /* ---------- Depoimentos ---------- */
 .depoimentos { padding: var(--section-pad-y) var(--section-pad-x); background: var(--gray-900); }
-.depoimentos h2 { max-width: 760px; font-size: clamp(1.9rem, 3.2vw, 2.7rem); margin-bottom: clamp(56px, 8vw, 100px); }
+.depoimentos h2 { max-width: 760px; font-size: clamp(1.9rem, 3.2vw, 2.7rem); }
+.dep-disclaimer {
+  font-size: 0.75rem; color: var(--gray-500); font-style: italic;
+  margin-top: 0.8rem; margin-bottom: clamp(56px, 8vw, 100px); max-width: 520px;
+}
 .dep-list { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(32px, 4vw, 60px); }
 .dep-item { text-align: left; }
 .dep-photo {
   width: 64px; height: 64px; border-radius: 50%; margin-bottom: 1.6rem;
   border: 1px solid rgba(200,169,106,0.4);
+  color: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(200,169,106,0.06);
 }
+.dep-photo svg { width: 60%; height: 60%; }
 .dep-item blockquote {
   font-family: var(--font-display); font-style: italic; font-weight: 300;
   font-size: clamp(1.05rem, 1.6vw, 1.3rem); line-height: 1.5; color: var(--ice);
