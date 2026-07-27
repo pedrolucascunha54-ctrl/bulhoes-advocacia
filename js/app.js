@@ -321,14 +321,19 @@ function initDesktopNarrative() {
     ctx.scale(dpr, dpr);
   }
 
-  function drawPaddedCover(el) {
+  /* Foco vertical do crop por índice de vídeo (0 = mostra o topo, 0.5 = centro, 1 = mostra a base).
+     Ajuste aqui quando um vídeo específico cortar algo importante (rosto, cabeça, texto). */
+  const FOCUS_Y = { 2: 0.12 }; // 2 = criminal (estátua) — prioriza o topo/cabeça
+
+  function drawPaddedCover(el, focusY) {
     if (!el) return;
     const cw = window.innerWidth, ch = window.innerHeight;
     const iw = el.videoWidth || 0, ih = el.videoHeight || 0;
     if (!iw || !ih) return;
     const scale = Math.max(cw / iw, ch / ih);
     const dw = iw * scale, dh = ih * scale;
-    const dx = (cw - dw) / 2, dy = (ch - dh) / 2;
+    const dx = (cw - dw) / 2;
+    const dy = dh > ch ? -(dh - ch) * (focusY ?? 0.5) : (ch - dh) / 2;
     ctx.fillStyle = '#080808';
     ctx.fillRect(0, 0, cw, ch);
     ctx.drawImage(el, dx, dy, dw, dh);
@@ -347,8 +352,8 @@ function initDesktopNarrative() {
         prevIdx = -1;
       }
     }
-    if (pv && pv !== cv && blend < 1) { ctx.globalAlpha = 1; drawPaddedCover(pv); }
-    if (cv) { ctx.globalAlpha = blend; drawPaddedCover(cv); ctx.globalAlpha = 1; }
+    if (pv && pv !== cv && blend < 1) { ctx.globalAlpha = 1; drawPaddedCover(pv, FOCUS_Y[prevIdx]); }
+    if (cv) { ctx.globalAlpha = blend; drawPaddedCover(cv, FOCUS_Y[currentIdx]); ctx.globalAlpha = 1; }
   }
 
   function getVideoIdx(p) {
