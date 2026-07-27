@@ -258,6 +258,12 @@ h1, h2, h3 {
   object-fit: contain;
   background: var(--black);
 }
+@media (min-width: 901px) {
+  .hero-visual video {
+    object-fit: cover;
+    object-position: center 32%;
+  }
+}
 .hero-overlay {
   position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(0deg, rgba(8,8,8,0.96) 0%, rgba(8,8,8,0.3) 40%, rgba(8,8,8,0.15) 100%);
