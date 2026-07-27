@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
         video.pause();
       }
     });
-  }, { rootMargin: '600px 0px' });
+  }, { rootMargin: '1800px 0px' });
 
   lazyVideos.forEach((video) => videoObserver.observe(video));
 
