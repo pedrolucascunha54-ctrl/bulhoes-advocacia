@@ -533,6 +533,33 @@ h1, h2, h3 {
 [data-reveal] { will-change: transform, opacity; }
 [data-split] { will-change: transform, opacity; }
 
+/* ---------- Large desktop: scale up presence instead of leaving it small in the negative space ---------- */
+@media (min-width: 1440px) {
+  .hero-title { font-size: clamp(2.4rem, 6vw, 6.6rem); }
+  .hero-subtext { font-size: 1.3rem; max-width: 540px; }
+  .hero-content { max-width: 1120px; }
+
+  .sobre-text h2 { font-size: clamp(1.8rem, 3.2vw, 3.2rem); }
+  .sobre-text p { max-width: 620px; font-size: 1.05rem; }
+
+  .areas-intro-content { max-width: 920px; }
+  .areas-intro h2 { font-size: clamp(1.9rem, 3.4vw, 3.4rem); }
+
+  .area-text { max-width: 860px; padding: clamp(32px, 5vw, 100px); }
+  .area-text h3 { font-size: clamp(2rem, 3.6vw, 4rem); }
+  .area-text p { max-width: 640px; font-size: 1.08rem; }
+
+  .diferenciais h2, .processo h2, .depoimentos h2, .faq h2 {
+    max-width: 920px; font-size: clamp(1.9rem, 3.2vw, 3.2rem);
+  }
+  .dif-grid, .dep-list, .timeline { max-width: 1360px; }
+  .dif-number, .dif-mark { font-size: clamp(2.4rem, 4vw, 4.2rem); }
+  .dep-item blockquote { font-size: clamp(1.05rem, 1.6vw, 1.5rem); }
+
+  .cta-final h2 { font-size: clamp(2.2rem, 5vw, 5.2rem); max-width: 1080px; }
+  .btn-huge { padding: 1.6rem 3.6rem; font-size: 1.05rem; }
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
   .header-nav, .header-cta { display: none; }
