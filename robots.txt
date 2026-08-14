@@ -1,0 +1,13 @@
+# robots.txt — Bulhões Sociedade Individual de Advocacia
+# https://www.bulhoesadvocacia.com.br/
+
+User-agent: *
+Allow: /
+
+# Recursos necessários para renderização (CSS, JS, imagens, vídeos)
+# devem permanecer rastreáveis — não bloquear.
+Allow: /css/
+Allow: /js/
+Allow: /assets/
+
+Sitemap: https://www.bulhoesadvocacia.com.br/sitemap.xml

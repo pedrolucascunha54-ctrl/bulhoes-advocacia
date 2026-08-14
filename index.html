@@ -15,21 +15,32 @@
 <meta property="og:site_name" content="Bulhões Sociedade de Advocacia">
 <meta property="og:title" content="Bulhões Sociedade de Advocacia | Araraquara-SP">
 <meta property="og:description" content="Atuação jurídica estratégica para pessoas físicas e empresas. Nós defendemos direitos, protegemos patrimônios, mudamos histórias.">
-<meta property="og:image" content="assets/img/logo.jpeg">
+<meta property="og:image" content="https://www.bulhoesadvocacia.com.br/assets/img/logo.jpeg">
+<meta property="og:image:width" content="1254">
+<meta property="og:image:height" content="1254">
+<meta property="og:image:alt" content="Logotipo da Bulhões Sociedade Individual de Advocacia">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:url" content="https://www.bulhoesadvocacia.com.br/">
 
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Bulhões Sociedade de Advocacia">
+<!-- Twitter/X -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bulhões Sociedade de Advocacia | Araraquara-SP">
 <meta name="twitter:description" content="Atuação jurídica estratégica para pessoas físicas e empresas.">
-<meta name="twitter:image" content="assets/img/logo.jpeg">
+<meta name="twitter:image" content="https://www.bulhoesadvocacia.com.br/assets/img/logo.jpeg">
+<meta name="twitter:image:alt" content="Logotipo da Bulhões Sociedade Individual de Advocacia">
 
+<meta name="theme-color" content="#080808">
 <link rel="icon" type="image/jpeg" href="assets/img/logo.jpeg">
+<link rel="apple-touch-icon" href="assets/img/logo.jpeg">
+
+<!-- Preload do poster do hero (LCP) -->
+<link rel="preload" as="image" href="assets/img/posters/hero.jpg" media="(min-width: 768px)">
+<link rel="preload" as="image" href="assets/img/posters/hero-vertical.jpg" media="(max-width: 767px)">
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/style.css">
@@ -39,8 +50,12 @@
 {
   "@context": "https://schema.org",
   "@type": "LegalService",
+  "@id": "https://www.bulhoesadvocacia.com.br/#organizacao",
   "name": "Bulhões Sociedade Individual de Advocacia",
+  "alternateName": "Bulhões Sociedade de Advocacia",
+  "description": "Sociedade de advocacia em Araraquara-SP com atuação em Direito Trabalhista, Criminal, Civil, de Família, Empresarial, Previdenciário e Tributário, para pessoas físicas e empresas.",
   "image": "https://www.bulhoesadvocacia.com.br/assets/img/logo.jpeg",
+  "logo": "https://www.bulhoesadvocacia.com.br/assets/img/logo.jpeg",
   "telephone": ["+5511913676116"],
   "email": "bulhoessociedadeadvogados@gmail.com",
   "address": {
@@ -51,7 +66,10 @@
     "postalCode": "14801-290",
     "addressCountry": "BR"
   },
-  "areaServed": "Araraquara, SP",
+  "areaServed": [
+    { "@type": "City", "name": "Araraquara" },
+    { "@type": "State", "name": "São Paulo" }
+  ],
   "priceRange": "$$",
   "identifier": "OAB 61367",
   "url": "https://www.bulhoesadvocacia.com.br/",
@@ -79,6 +97,56 @@
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://www.bulhoesadvocacia.com.br/" }
+  ]
+}
+</script>
+
+<!-- WebSite -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://www.bulhoesadvocacia.com.br/#site",
+  "url": "https://www.bulhoesadvocacia.com.br/",
+  "name": "Bulhões Sociedade de Advocacia",
+  "inLanguage": "pt-BR",
+  "publisher": { "@id": "https://www.bulhoesadvocacia.com.br/#organizacao" }
+}
+</script>
+
+<!-- FAQPage — espelha as perguntas da seção #faq -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://www.bulhoesadvocacia.com.br/#faq",
+  "inLanguage": "pt-BR",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Como funciona a primeira consulta?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Analisamos seu caso com atenção, explicamos as possibilidades reais e traçamos os próximos passos com total transparência sobre prazos e custos." }
+    },
+    {
+      "@type": "Question",
+      "name": "Quais áreas o escritório atende?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Atuamos em Direito Trabalhista, Criminal, Civil, Família, Empresarial, Previdenciário e Tributário, para pessoas físicas e empresas." }
+    },
+    {
+      "@type": "Question",
+      "name": "O atendimento é presencial ou online?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Ambos. Recebemos clientes em nosso escritório em Araraquara-SP e também atendemos remotamente conforme a necessidade do caso." }
+    },
+    {
+      "@type": "Question",
+      "name": "Quanto tempo leva um processo?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Cada caso tem um prazo próprio, definido pela complexidade e pela instância judicial. Após a análise inicial, apresentamos uma estimativa realista." }
+    },
+    {
+      "@type": "Question",
+      "name": "Como falo com um advogado agora?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Basta clicar em qualquer botão \"Fale com um advogado\" para iniciar uma conversa direta pelo WhatsApp com nossa equipe." }
+    }
   ]
 }
 </script>
@@ -731,9 +799,9 @@
 </a>
 
 <!-- CDN Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js" defer></script>
 <script src="js/app.js" defer></script>
 </body>
 </html>
