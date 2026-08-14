@@ -7,14 +7,12 @@
    para os botões atuais e para qualquer botão novo, sem precisar editar
    link por link.
 
-   Para registrar a conversão no Google Ads, preencha CONVERSION_SEND_TO
-   com o valor que o painel fornece, no formato:
-       AW-18374462075/AbC-D_efGhIjK
-   Enquanto estiver vazio, o clique é enviado apenas como evento comum.
+   A conversão registrada é a "Clique no WhatsApp", do Google Ads.
+   A tag base (gtag.js) fica no <head> das páginas — não duplicar aqui.
    ============================================================ */
 
 (function () {
-  var CONVERSION_SEND_TO = ''; // ex.: 'AW-18374462075/AbC-D_efGhIjK'
+  var CONVERSION_SEND_TO = 'AW-18374462075/WYv9CJKS5uEcEPuU0LlE';
 
   document.addEventListener('click', function (e) {
     var link = e.target.closest('a[href]');
@@ -29,10 +27,7 @@
     if (typeof window.gtag !== 'function') return;
 
     if (CONVERSION_SEND_TO) {
-      window.gtag('event', 'conversion', {
-        send_to: CONVERSION_SEND_TO,
-        event_callback: function () {},
-      });
+      window.gtag('event', 'conversion', { send_to: CONVERSION_SEND_TO });
     }
 
     window.gtag('event', 'contato_clique', {
